@@ -14,6 +14,8 @@ app.use(
 );
 app.use(express.static('public'));
 
+/**********************REST API**********************/
+
 mongoose.connect(
 	`mongodb+srv://${process.env.DB_USER}:${process.env.DB_USER}@cluster0.4isp2.mongodb.net/wikiDB?retryWrites=true&w=majority`,
 	{
@@ -137,9 +139,17 @@ app
 		}
 	});
 
-app.listen(process.env.PORT, () => {
-	cl(`api server started on port ${process.env.PORT}`);
+/***********************SERVER***********************/
+
+app.get('/', (req, res) => {
+	res.render('home');
 });
+
+app.listen(process.env.PORT, () => {
+	cl(`server started on port ${process.env.PORT}`);
+});
+
+/******************HELPER FUNCTIONS******************/
 
 function cl(str) {
 	console.log(str);
