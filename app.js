@@ -34,7 +34,7 @@ const articleSchema = new mongoose.Schema({
 const Article = mongoose.model('Article', articleSchema);
 
 app
-	.route('/articles')
+	.route('/api/articles')
 	.get((req, res) => {
 		Article.find((err, foundArticles) => {
 			err ? res.send(err) : res.send(foundArticles);
@@ -72,7 +72,7 @@ app
 	});
 
 app
-	.route('/articles/:articleTitle')
+	.route('api/articles/:articleTitle')
 	.get((req, res) => {
 		Article.findOne(
 			{
@@ -136,10 +136,6 @@ app
 			res.send('Error: API key not valid');
 		}
 	});
-
-app.get('/test', (req, res) => {
-	res.send('Git deployment successful');
-});
 
 app.listen(process.env.PORT, () => {
 	cl(`api server started on port ${process.env.PORT}`);
