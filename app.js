@@ -137,6 +137,10 @@ app
 		}
 	});
 
+app.get('/test', (req, res) => {
+	res.send('Git deployment successful');
+});
+
 app.listen(process.env.PORT, () => {
 	cl(`api server started on port ${process.env.PORT}`);
 });
