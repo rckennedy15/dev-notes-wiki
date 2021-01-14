@@ -6,8 +6,24 @@
 
 ✅deploy api w heroku
 
-build frontend with EJS
-
 ✅add authentication so only I can add stuff
 
-deploy
+✅Merge Wiki-API into same app
+
+add categories to API and DB
+	categories[[cat1], [cat2], [cat3]]
+		cat1
+		|_cat2
+			|_cat3
+
+add search function to API app.com/api/search?****
+
+build frontend with EJS
+
+instead of 1 API key, make DB collection of
+encrypted, hashed + salted (bcrypt) keys
+	- server should have users db collection:
+			username: str
+			password: hashed and salted str
+			API_keys: []
+		- all three must match

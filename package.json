@@ -4,17 +4,20 @@
 	"description": "A simple api for a 'programming notes' wiki",
 	"main": "app.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build-css": "tailwindcss build src/styles.css -o public/css/styles.css"
 	},
 	"author": "Ryan Kennedy",
 	"license": "ISC",
 	"dependencies": {
+		"autoprefixer": "^10.2.1",
 		"body-parser": "^1.19.0",
 		"dotenv": "^8.2.0",
 		"ejs": "^3.1.5",
 		"express": "^4.17.1",
 		"lodash": "^4.17.20",
-		"mongoose": "^5.11.10"
+		"mongoose": "^5.11.10",
+		"postcss": "^8.2.4",
+		"tailwindcss": "^2.0.2"
 	},
 	"engines": {
 		"node": "15.5.0"

@@ -2,4 +2,4 @@
 npm-debug.log
 .DS_Store
 /*.env
-tailwind.css
+/public/css

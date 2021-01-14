@@ -31,6 +31,10 @@ const articleSchema = new mongoose.Schema({
 	},
 	formattedTitle: String,
 	content: String,
+	categories: {
+		type: Array,
+		default: [],
+	},
 });
 
 const Article = mongoose.model('Article', articleSchema);
@@ -48,6 +52,7 @@ app
 				title: _.replace(_.toLower(req.body.title), ' ', '-'),
 				formattedTitle: req.body.title,
 				content: req.body.content,
+				// TODO add categories: {}
 			});
 
 			newArticle.save((err) => {
