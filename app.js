@@ -79,7 +79,7 @@ app
 	});
 
 app
-	.route('api/articles/:articleTitle')
+	.route('/api/articles/:articleTitle')
 	.get((req, res) => {
 		Article.findOne(
 			{
