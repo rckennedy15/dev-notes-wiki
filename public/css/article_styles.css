@@ -1,0 +1,9 @@
+@media (max-width: 800px) {
+	.categories {
+		display: none;
+	}
+	.article {
+		display: block;
+		padding: 0 3rem;
+	}
+}

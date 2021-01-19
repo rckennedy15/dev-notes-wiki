@@ -1,32 +1,40 @@
-<%- include("partials/header") -%>
+<% if (article) { %>
+	<%- include("partials/article-header") -%>
+<% } else { %>
+	<%- include("partials/header") -%>
+ <% } %> 
 	<body>
 		<div>
 			<!-- heading -->
-			<div class="grid grid-cols-5 py-10 grid-flow-row">
-				<div class="col-span-1 text-5xl text-gray-600 pl-10">
-					<a href="/">Dev Wiki</a>
+			<div class="heading">
+				<div class="">
+					<!-- logo -->
+					<a class="logo" href="/">Dev Wiki</a>
 				</div>
-				<div class="col-span-1 col-end-6">
-					<form class="h-full" action="/">
-						<input class="transition duration-500 ease-in-out bg-gray-300 py-3 pl-6 w-full focus:outline-none focus:bg-blue-200 focus:placeholder-gray-50 focus:border-gray-300 focus:border-b-2 rounded-full" type="text" placeholder="Search">
+				<div class="">
+					<form class="search-container" action="/">
+						<!-- search -->
+						<i class="fas fa-search search-icon"></i>
+  					<input class="search-box" type="search" name="search" placeholder="Search...">
+  					<!-- <input type="submit" value="Search" class="searchButton"> -->
 					</form>
 				</div>
 			</div>
 			<!-- content -->
-			<div class="grid h-screen grid-cols-6">
+			<div class="content">
 				<!-- categories -->
-				<div class="bg-gray-500 col-span-1 pl-10 pt-10 text-gray-300 leading-8">
-					<h2 class="leading-10 border-b-2 border-gray-300 mr-10">Categories</h2>
+				<div class="categories">
+					<h2 class="">Categories</h2>
 					<ul>
 						<li>
 							<a href="">Frontend</a>
-							<ul class="pl-5">
+							<ul class="">
 								<li>
 									<a href="">html</a>
 								</li>
 								<li>
 									<a href="">css</a>
-									<ul class="pl-5">
+									<ul class="">
 										<li>
 											<a href="">tailwind</a>
 										</li>
@@ -36,7 +44,7 @@
 						</li>
 						<li>
 							<a href="">Backend</a>
-							<ul class="pl-5">
+							<ul class="">
 								<li>
 									<a href="">node.js</a>
 								</li>
@@ -48,12 +56,13 @@
 					</ul>
 				</div>
 				<!-- article content -->
-				<div class="bg-gray-300 col-span-5">
-					
+				<div class="article">
+					<h1><%= formattedTitle %> </h1>
+					<p><%= content %></p>
 				</div>
 			</div>
 		</div>
-		<div class="bg-gray-500 py-10 text-center text-white">
+		<div class="footer">
 			<p>© Ryan Kennedy 2021</p>
 		</div>
 	</body>

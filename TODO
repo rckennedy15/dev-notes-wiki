@@ -11,14 +11,11 @@
 ✅Merge Wiki-API into same app
 
 add categories to API and DB
-	categories[[cat1], [cat2], [cat3]]
-		cat1
-		|_cat2
-			|_cat3
+	parent: ObjectId(asjdlkjasdl)
 
-add search function to API app.com/api/search?****
+add search function app.com/api/search?****
 
-build frontend with EJS
+✅build frontend with EJS
 
 instead of 1 API key, make DB collection of
 encrypted, hashed + salted (bcrypt) keys

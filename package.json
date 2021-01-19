@@ -9,15 +9,12 @@
 	"author": "Ryan Kennedy",
 	"license": "ISC",
 	"dependencies": {
-		"autoprefixer": "^10.2.1",
 		"body-parser": "^1.19.0",
 		"dotenv": "^8.2.0",
 		"ejs": "^3.1.5",
 		"express": "^4.17.1",
 		"lodash": "^4.17.20",
-		"mongoose": "^5.11.10",
-		"postcss": "^8.2.4",
-		"tailwindcss": "^2.0.2"
+		"mongoose": "^5.11.10"
 	},
 	"engines": {
 		"node": "15.5.0"

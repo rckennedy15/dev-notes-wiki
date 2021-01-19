@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const _ = require('lodash');
+const https = require('https');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -31,10 +32,11 @@ const articleSchema = new mongoose.Schema({
 	},
 	formattedTitle: String,
 	content: String,
-	categories: {
-		type: Array,
-		default: [],
+	parentID: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Article',
 	},
+	parent: String,
 });
 
 const Article = mongoose.model('Article', articleSchema);
@@ -48,21 +50,37 @@ app
 	})
 	.post((req, res) => {
 		if (req.body.key === process.env.API_KEY) {
-			const newArticle = new Article({
-				title: _.replace(_.toLower(req.body.title), ' ', '-'),
-				formattedTitle: req.body.title,
-				content: req.body.content,
-				// TODO add categories: {}
+			Article.findOne({ formattedTitle: req.body.parent }, (err, result) => {
+				if (err) {
+					cl(err);
+					res.send('Error: cannot find parent');
+				} else {
+					var pID;
+					if (req.body.parent === '1') {
+						pID = '1';
+					} else {
+						pID = result._id;
+					}
+					const newArticle = new Article({
+						title: _.replace(_.toLower(req.body.title), ' ', '-'),
+						formattedTitle: req.body.title,
+						content: req.body.content,
+						parent: req.body.parent,
+						parentID: pID,
+					});
+
+					newArticle.save((err) => {
+						err ? res.send(err) : res.send('Successfully added article!');
+					});
+				}
 			});
 
-			newArticle.save((err) => {
-				err ? res.send(err) : res.send('Successfully added article!');
-			});
 			termLine();
 			cl('Created new article:');
-			cl('\tTitle: ' + _.replace(_.toLower(req.body.title), ' ', '-'));
-			cl('\tFormatted Title: ' + req.body.title);
-			cl('\tContent: ' + req.body.content);
+			cl(`\tTitle: 						${_.replace(_.toLower(req.body.title), ' ', '-')}`);
+			cl(`\tFormatted Title: 	${req.body.title}`);
+			cl(`\tContent: 					${req.body.content}`);
+			cl(`\tParent: 					${req.body.parent}`);
 			termLine();
 		} else {
 			res.send('Error: API key not valid');
@@ -90,6 +108,7 @@ app
 			}
 		);
 	})
+	// DEPRECATED
 	.put((req, res) => {
 		if (req.body.key === process.env.API_KEY) {
 			Article.update(
@@ -147,7 +166,43 @@ app
 /***********************SERVER***********************/
 
 app.get('/', (req, res) => {
-	res.render('home');
+	// TODO ADD CATEGORIES
+
+	res.render('home', {
+		article: false,
+		formattedTitle: 'Test',
+		content: 'ajsdhjklash aslkdh lksahd lksdh ',
+	});
+});
+
+// switch to actually use API instead of directly searching database
+app.get('/articles/:articleTitle', (req, res) => {
+	const title = req.params.articleTitle;
+	// Article.findOne({ title: title }, (err, result) => {
+	// 	if (err) {
+	// 		res.send('404 :(');
+	// 	} else {
+	// 		res.render('home', {
+	// 			article: true,
+	// 			formattedTitle: result.formattedTitle,
+	// 			content: result.content,
+	// 		});
+	// 	}
+	// });
+
+	// DONT ACTUALLY DO THIS
+	// ACCESS API ROUTE WITHOUT MAKING AN HTTPS REQUEST
+	https
+		.get(process.env.API_URL + ':' + process.env.PORT, (res) => {
+			console.log(res.title);
+
+			res.on('data', (d) => {
+				process.stdout.write(d);
+			});
+		})
+		.on('error', (e) => {
+			console.error(e);
+		});
 });
 
 app.listen(process.env.PORT, () => {
